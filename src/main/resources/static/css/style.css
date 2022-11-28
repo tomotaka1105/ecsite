@@ -181,3 +181,7 @@ button {
 	margin-left: 30px;
 	color: red;
 }
+
+#loginError {
+	color: yellow;
+}

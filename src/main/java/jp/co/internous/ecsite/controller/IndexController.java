@@ -51,15 +51,15 @@ public class IndexController {
 	@ResponseBody
 	@PostMapping("/api/login")
 	public String loginApi(@RequestBody LoginForm form, Model m) {
-		List<User> users = userRepos.findByUserNameAndPassword(form.getUserName(), form.getPassword());
+		User user = userRepos.findByUserNameAndPassword(form.getUserName(), form.getPassword());
 		
 		LoginDto dto = new LoginDto(0, null, null, "ゲスト");
-		if(users.size() > 0) {
-			dto = new LoginDto(users.get(0));	
+		if(user == null) {
 			return gson.toJson(dto);
 		}
 		
-
+		dto = new LoginDto(user);
+		
 		return gson.toJson(dto);
 	}
 	

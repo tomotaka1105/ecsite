@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jp.co.internous.ecsite.model.dao.FindUserRepository;
 import jp.co.internous.ecsite.model.dao.GoodsRepository;
+import jp.co.internous.ecsite.model.dao.UserRepository;
 import jp.co.internous.ecsite.model.entity.Goods;
 import jp.co.internous.ecsite.model.entity.User;
 import jp.co.internous.ecsite.model.form.GoodsForm;
@@ -25,7 +25,7 @@ public class AdminController {
 	private GoodsRepository goodsRepos;
 	
 	@Autowired
-	private FindUserRepository finduserRepos;
+	private UserRepository userRepos;
 	
 	@RequestMapping("/")
 	public String index() {
@@ -34,7 +34,7 @@ public class AdminController {
 
 	@PostMapping("/welcome")
 	public String welcome(LoginForm form, Model m) {
-		User user = finduserRepos.findByUserNameAndPasswordAndIsAdmin(form.getUserName(), form.getPassword(), form.getIsAdmin());
+		User user = userRepos.findByUserNameAndPassword(form.getUserName(), form.getPassword());
 		if (user == null) {
             m.addAttribute("errMessage", "ユーザー名またはパスワードが違います。");
             return "welcome";

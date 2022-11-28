@@ -14,6 +14,10 @@ let login = (event) => {
 	})
 	.then((result) => {
 			let user = JSON.parse(result);
+			console.log(user);
+			if(user.id == 0){
+				$('#loginError').text('ユーザー名、またはパスワードが間違えています。');
+			}
 			$('#welcome').text(` --ようこそ! ${user.fullName} さん`);
 			$('#hiddenUserId').val(user.id);
 			$('input[name=userName]').val('');
